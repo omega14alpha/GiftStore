@@ -1,6 +1,6 @@
 ﻿using GiftStore.Comparers;
-using GiftStore.Enums;
 using GiftStore.Infrastructure;
+using GiftStore.Infrastructure.SweetnessFactory;
 using GiftStore.Models;
 using System;
 using System.Collections.Generic;
@@ -32,22 +32,19 @@ namespace GiftStore
 
         static private IEnumerable<Sweetness> FillGift()
         {
-            List<Sweetness> sweetnesses = new List<Sweetness>
-             {
-                 new Candy() { Name = "GoldenKey", Manufacturer = "ABC", Weight = 23f, SugarContent = 12.6f, Taste = "Lemon" },
-                 new Candy() { Name = "Barberry", Manufacturer = "CNoR", Weight = 16f, SugarContent = 9.01f, Taste = "Barberry" },
-                 new ChocolateBar() { Name = "AlpenGold", Manufacturer = "AG", Weight = 100, SugarContent = 67.12f, PercentageCocoaContent = 12, WithNuts = false },
-                 new ChocolateBar() { Name = "Alenka", Manufacturer = "Komunarka", Weight = 50, SugarContent = 24.93f, PercentageCocoaContent = 32, WithNuts = true },
-                 new JellyCandy() { Name = "LittleBee", Manufacturer = "Roshen", Weight = 19, SugarContent = 8.71f, ThickeningAgent = ThickeningAgent.Gelatin },
-                 new JellyCandy() { Name = "Barberry", Manufacturer = "ABC", Weight = 26, SugarContent = 14.34f, ThickeningAgent = ThickeningAgent.Agar }
-             };
-
             Random random = new Random();
             int sweetnessCount = random.Next(5, 10);
+            Factory[] factories = new Factory[]
+            {
+                new CandyCreator(),
+                new ChocolateBarCreator(),
+                new JellyCandyCreator()
+            };
+
             for (int i = 0; i < sweetnessCount; i++)
             {
-                int index = random.Next(0, sweetnesses.Count);
-                yield return sweetnesses[index];
+                int index = random.Next(0, factories.Length);
+                yield return factories[index].CreateSweetness();
             }
         }
 
