@@ -99,12 +99,22 @@ namespace GiftStore
 
         static private void Sort<T>(Func<Sweetness, T> func)
         {
+            if (func is null)
+            {
+                throw new ArgumentNullException("parameter 'func' cannot be null!");
+            }
+
             _candyGift.SortSweetness(func);
             ShowGiftContent();
         }
 
         static private void Sort<T>(IComparer<object> comparer)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException("parameter 'comparer' cannot be null!");
+            }
+
             _candyGift.SortSweetness<T>(comparer);
             ShowGiftContent();
         }

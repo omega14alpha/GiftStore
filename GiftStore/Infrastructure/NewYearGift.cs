@@ -26,25 +26,69 @@ namespace GiftStore.Infrastructure
             _sweetnesses = new List<T>();
         }
 
-        public void AddSweetness(T sweetness) =>
+        public void AddSweetness(T sweetness)
+        {
+            if (sweetness is null)
+            {
+                throw new ArgumentNullException("parameter 'sweetness' cannot be null!");
+            }
+
             _sweetnesses.Add(sweetness);
+        }
 
-        public void AddSweetness(IEnumerable<T> sweetness) =>
-            _sweetnesses.AddRange(sweetness);
+        public void AddSweetness(IEnumerable<T> sweetnesses)
+        {
+            if (sweetnesses is null)
+            {
+                throw new ArgumentNullException("parameter 'sweetnesses' cannot be null!");
+            }
 
-        public void DeleteSweetness(T sweetness) =>
-            _sweetnesses.Remove(sweetness);
+            _sweetnesses.AddRange(sweetnesses);
+        }
 
-        public T FindSweetnessBySugarContent(float min, float max) =>
-            _sweetnesses.FirstOrDefault(x => x.SugarContent >= min && x.SugarContent <= max);
+        public void DeleteSweetness(T removeSweetness)
+        {
+            if (removeSweetness is null)
+            {
+                throw new ArgumentNullException("parameter 'removeSweetness' cannot be null!");
+            }
 
-        public float GetGiftWeight() =>
-            _sweetnesses.Sum(x => x.Weight);
+            _sweetnesses.Remove(removeSweetness);
+        }
 
-        public void SortSweetness<K>(Func<T, K> func) =>
-            _sweetnesses = _sweetnesses.OrderBy(func).ToList();
+        public T FindSweetnessBySugarContent(float min, float max)
+        {
+            if (min < 0 || max < 0)
+            {
+                throw new ArgumentOutOfRangeException("None of the parameters can be less than zero!"); 
+            }
 
-        public void SortSweetness<R>(IComparer<object> comparer) =>
-            _sweetnesses = _sweetnesses.OrderBy(x => x is R).ThenBy(x => x, comparer).ToList();
+            return _sweetnesses.FirstOrDefault(x => x.SugarContent >= min && x.SugarContent <= max);
+        }
+
+        public float GetGiftWeight()
+        {
+            return _sweetnesses.Sum(x => x.Weight);
+        }
+
+        public void SortSweetness<K>(Func<T, K> sortFunc)
+        {
+            if (sortFunc is null)
+            {
+                throw new ArgumentNullException("parameter 'sortFunc' cannot be null!");
+            }
+
+            _sweetnesses = _sweetnesses.OrderBy(sortFunc).ToList();
+        }
+
+        public void SortSweetness<R>(IComparer<object> sortComparer)
+        {
+            if (sortComparer is null)
+            {
+                throw new ArgumentNullException("parameter 'sortComparer' cannot be null!");
+            }
+
+            _sweetnesses = _sweetnesses.OrderBy(x => x is R).ThenBy(x => x, sortComparer).ToList();
+        }
     }
 }
