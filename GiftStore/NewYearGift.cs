@@ -1,9 +1,10 @@
-﻿using GiftStore.Models;
+﻿using GiftStore.Infrastructure.Interfaces;
+using GiftStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GiftStore.Infrastructure
+namespace GiftStore
 {
     public class NewGift<T> : ICandyGift<T> where T : Sweetness
     {
@@ -60,7 +61,7 @@ namespace GiftStore.Infrastructure
         {
             if (min < 0 || max < 0)
             {
-                throw new ArgumentOutOfRangeException("None of the parameters can be less than zero!"); 
+                throw new ArgumentOutOfRangeException("None of the parameters can be less than zero!");
             }
 
             return _sweetnesses.FirstOrDefault(x => x.SugarContent >= min && x.SugarContent <= max);

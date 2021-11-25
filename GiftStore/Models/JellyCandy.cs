@@ -2,14 +2,11 @@
 
 namespace GiftStore.Models
 {
-    public class JellyCandy : Sweetness
+    public abstract class JellyCandy : Sweetness
     {
-        public ThickeningAgent ThickeningAgent { get; set; }
+        public ThickeningAgent ThickeningAgent { get; protected set; }
 
-        public override string GetSweetnessInfo()
-        {
-            string info = base.GetSweetnessInfo() + $", thickening agent - {ThickeningAgent}";
-            return info;
-        }
+        public override string GetSweetnessInfo() =>
+            base.GetSweetnessInfo() + $", thickening agent - {ThickeningAgent}";
     }
 }

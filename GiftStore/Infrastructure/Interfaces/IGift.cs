@@ -1,4 +1,4 @@
-﻿namespace GiftStore.Infrastructure
+﻿namespace GiftStore.Infrastructure.Interfaces
 {
     public interface IGift
     {

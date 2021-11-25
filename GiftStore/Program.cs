@@ -1,5 +1,5 @@
 ﻿using GiftStore.Comparers;
-using GiftStore.Infrastructure;
+using GiftStore.Infrastructure.Interfaces;
 using GiftStore.Infrastructure.SweetnessFactory;
 using GiftStore.Models;
 using System;
@@ -36,9 +36,15 @@ namespace GiftStore
             int sweetnessCount = random.Next(5, 10);
             Factory[] factories = new Factory[]
             {
-                new CandyCreator(),
-                new ChocolateBarCreator(),
-                new JellyCandyCreator()
+                new LollipopCreator(),
+                new NougatCreator(),
+                new ToffeeCreator(),
+                new BitterChocolateCreator(),
+                new MilkChocolateCreator(),
+                new WhiteChocolateCreator(),
+                new GelatinCandyCreator(),
+                new AgarCandyCreator(),
+                new PectinCandyCreator(),
             };
 
             for (int i = 0; i < sweetnessCount; i++)
@@ -50,8 +56,9 @@ namespace GiftStore
 
         static private void WorkMenu()
         {
-            Console.Write("\nOptions menu:\n\t1. Get sweetness by sugar content.\n\t2. Sort by 'name'.\n\t3. Sort by 'manufacturer'.\n\t4. Sort by 'sugar content'.\n" +
-                "\t5. Sort by 'weight'.\n\t6. Sort by 'taste'.\n\t7. Sort by 'percentage cocoa content'.\n\t8. Sort by 'thickening agent'.\n\tOr enter any button to exit.\nYour choice? ");
+            Console.Write("\nOptions menu:\n\t1. Get sweetness by sugar content.\n\t2. Sort by 'name'.\n\t3. Sort by 'sugar content'.\n\t4. Sort by 'weight'." +
+                "\n\t5. Sort candies by 'taste'.\n\t6. Sort lollipops by 'color'\n\t7. Sort nougat by types of 'nuts'.\n\t8. Sort toffees by 'consistency'." +
+                "\n\t9. Sort by 'percentage cocoa content'.\n\t10. Sort by 'milk fat content'.\n\t11. Sort by 'thickening agent'.\n\tOr enter any button to exit.\nYour choice? ");
             int userChoise;
             int.TryParse(Console.ReadLine(), NumberStyles.Number, CultureInfo.InvariantCulture, out userChoise);
 
@@ -59,12 +66,15 @@ namespace GiftStore
             {
                 case 1: { FindSweetness(); break; }
                 case 2: { Sort(x => x.Name); break; }
-                case 3: { Sort(x => x.Manufacturer); break; }
-                case 4: { Sort(x => x.SugarContent); break; }
-                case 5: { Sort(x => x.Weight); break; }
-                case 6: { Sort<Candy>(new CandyTasteComarer()); break; }
-                case 7: { Sort<ChocolateBar>(new ChocolateBarCocoaContentComparer()); break; }
-                case 8: { Sort<JellyCandy>(new JellyCandyThickeningAgentComparer()); break; }
+                case 3: { Sort(x => x.SugarContent); break; }
+                case 4: { Sort(x => x.Weight); break; }
+                case 5: { Sort<Candy>(new CandyTasteComarer()); break; }
+                case 6: { Sort<Lollipop>(new LollipopColorComparer()); break; }
+                case 7: { Sort<Nougat>(new NougatNutsComparer()); break; }
+                case 8: { Sort<Toffee>(new ToffeeConsistencyComparer()); break; }    
+                case 9: { Sort<ChocolateBar>(new ChocolateBarCocoaContentComparer()); break; }
+                case 10: { Sort<MilkChocolate>(new MilkChocolateMilkFatContentComparer()); break; }
+                case 11: { Sort<JellyCandy>(new JellyCandyThickeningAgentComparer()); break; }
                 default:
                     {
                         Environment.Exit(0);

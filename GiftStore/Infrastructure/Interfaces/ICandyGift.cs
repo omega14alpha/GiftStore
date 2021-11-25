@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GiftStore.Infrastructure
+namespace GiftStore.Infrastructure.Interfaces
 {
     public interface ICandyGift<T> : IGift
     {
