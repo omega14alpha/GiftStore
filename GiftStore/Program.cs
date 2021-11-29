@@ -30,7 +30,7 @@ namespace GiftStore
             }
         }
 
-        static private IEnumerable<Sweetness> FillGift()
+        private static IEnumerable<Sweetness> FillGift()
         {
             Random random = new Random();
             int sweetnessCount = random.Next(5, 10);
@@ -54,7 +54,7 @@ namespace GiftStore
             }
         }
 
-        static private void WorkMenu()
+        private static void WorkMenu()
         {
             Console.Write("\nOptions menu:\n\t1. Get sweetness by sugar content.\n\t2. Sort by 'name'.\n\t3. Sort by 'sugar content'.\n\t4. Sort by 'weight'." +
                 "\n\t5. Sort candies by 'taste'.\n\t6. Sort lollipops by 'color'\n\t7. Sort nougat by types of 'nuts'.\n\t8. Sort toffees by 'consistency'." +
@@ -83,7 +83,7 @@ namespace GiftStore
             }
         }
 
-        static private void FindSweetness()
+        private static void FindSweetness()
         {
             Console.Write("Minimum sugar content: ");
             float min;
@@ -104,7 +104,7 @@ namespace GiftStore
             }
         }
 
-        static private void Sort<T>(Func<Sweetness, T> func)
+        private static void Sort<T>(Func<Sweetness, T> func)
         {
             if (func is null)
             {
@@ -115,7 +115,7 @@ namespace GiftStore
             ShowGiftContent();
         }
 
-        static private void Sort<T>(IComparer<object> comparer)
+        private static void Sort<T>(IComparer<object> comparer)
         {
             if (comparer is null)
             {
@@ -126,7 +126,7 @@ namespace GiftStore
             ShowGiftContent();
         }
 
-        static private void ShowGiftContent(string note = null)
+        private static void ShowGiftContent(string note = null)
         {
             Console.Clear();
             foreach (var sweetness in _candyGift.Sweetnesses)
